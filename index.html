@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rajdip Deb - Portfolio</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap">
-
 <style>
 :root {
     --primary: #00b4d8;
@@ -63,9 +62,9 @@ nav a:hover::after { width:100%; }
 }
 #hero-particles{ position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; }
 .hero h1, .hero h2, .btn{ position:relative; z-index:10; }
-.hero h1{ font-size:3rem; margin-bottom:15px; transition: all 0.3s ease;}
-.hero h2{ font-size:1.5rem; margin-bottom:35px; color:var(--primary); transition: all 0.3s ease;}
-.btn{ display:inline-block; background:var(--primary); color:white; padding:14px 32px; border-radius:50px; font-weight:700; box-shadow:var(--shadow-sm); animation:fadeInUp 0.8s ease-out 0.4s backwards; transition: all 0.3s cubic-bezier(0.23,1,0.32,1);}
+.hero h1{ font-size:3rem; margin-bottom:15px; transition: all 0.3s ease; opacity:0; transform:translateX(-30px);}
+.hero h2{ font-size:1.5rem; margin-bottom:35px; color:var(--primary); transition: all 0.3s ease; opacity:0;}
+.btn{ display:inline-block; background:var(--primary); color:white; padding:14px 32px; border-radius:50px; font-weight:700; box-shadow:var(--shadow-sm); transition: all 0.3s cubic-bezier(0.23,1,0.32,1); opacity:0; transform:translateY(20px);}
 .btn:hover{ background:var(--primary-dark); transform:translateY(-3px); box-shadow:var(--shadow-md);}
 .btn:active{ transform:scale(0.98); box-shadow:var(--shadow-sm); }
 
@@ -100,10 +99,6 @@ footer{ padding:60px 20px; background: var(--dark); color: rgba(255,255,255,0.7)
 #cursor-trail{ position:fixed; top:0; left:0; pointer-events:none; z-index:200;}
 .trail-particle{ position:absolute; width:8px; height:8px; background-color: var(--primary); border-radius:50%; opacity:0; transform:scale(1); transition: transform 1s ease-out, opacity 1s ease-out, background-color 1s ease-out; }
 
-/* Typing & Subtitle */
-#typed-title { font-size:3rem; font-weight:800; margin-bottom:15px; transition: all 0.3s ease; opacity:0; transform:translateX(-30px);}
-#dynamic-subtitle { font-size:1.5rem; margin-bottom:35px; color: var(--primary); transition: all 0.3s ease; }
-
 /* Responsive */
 @media(max-width:768px){
     nav{ justify-content:center; padding:15px; }
@@ -114,7 +109,6 @@ footer{ padding:60px 20px; background: var(--dark); color: rgba(255,255,255,0.7)
 }
 </style>
 </head>
-
 <body>
 <div id="scroll-progress"></div>
 
@@ -143,7 +137,6 @@ footer{ padding:60px 20px; background: var(--dark); color: rgba(255,255,255,0.7)
 <section class="work-section" id="work">
     <h2 class="section-title">My Work</h2>
     <div class="work-grid">
-        <!-- Example Projects -->
         <a class="project-card" href="https://github.com/RajdipDeb2405122/Flappy-Bird-Project" target="_blank">
             <div class="project-image-container">
                 <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop" alt="Game Development">
@@ -245,31 +238,60 @@ document.querySelectorAll('.project-card').forEach(card=>{
     card.addEventListener('mouseleave',()=>{ card.style.transform='perspective(1000px) translateY(-8px) rotateX(0deg) rotateY(0deg)'; });
 });
 
-// Typing Animation
-const titleText="Hi... I'm Rajdip Deb";
-const typedTitle=document.getElementById('typed-title');
-let i=0;
-function typeTitle(){ if(i<titleText.length){ typedTitle.textContent+=titleText[i]; i++; setTimeout(typeTitle,150);} typedTitle.style.opacity=1;}
+// Typing Animation for Hello
+const titleText = "Hello, I’m Rajdip Deb";
+const typedTitle = document.getElementById('typed-title');
+let i = 0;
+function typeTitle() {
+    if (i < titleText.length) {
+        typedTitle.textContent += titleText[i];
+        i++;
+        typedTitle.style.opacity = 1;
+        typedTitle.style.transform = 'translateX(0)';
+        setTimeout(typeTitle, 120);
+    }
+}
 typeTitle();
 
-// Rotating Subtitle
+// Rotate Subtitle with fade-in
 const subtitles=['CSE Student','Game Developer','Problem Solver','Tech Enthusiast','UI/UX Lover'];
 const subtitleElem=document.getElementById('dynamic-subtitle');
 let subIndex=0;
-function rotateSubtitle(){ subtitleElem.style.opacity=0; setTimeout(()=>{ subtitleElem.textContent=subtitles[subIndex]; subtitleElem.style.opacity=1; subIndex=(subIndex+1)%subtitles.length; },300);}
-rotateSubtitle();
+function rotateSubtitle(){
+    subtitleElem.style.opacity=0;
+    setTimeout(()=>{
+        subtitleElem.textContent=subtitles[subIndex];
+        subtitleElem.style.opacity=1;
+        subIndex=(subIndex+1)%subtitles.length;
+    },300);
+}
+setTimeout(rotateSubtitle, 1500); // delay to show title first
 setInterval(rotateSubtitle,2500);
+
+// Fade in CTA button after title
+const btn = document.querySelector('.btn');
+setTimeout(()=>{
+    btn.style.opacity = 1;
+    btn.style.transform = 'translateY(0)';
+}, titleText.length*120 + 500); 
 
 // Particle Background
 const canvas=document.getElementById('hero-particles');
 const ctx=canvas.getContext('2d');
 let particlesArray=[], mouse={x:null,y:null};
-canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight;
-window.addEventListener('resize',()=>{ canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight; initParticles(); });
+function resizeCanvas(){ canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight; initParticles();}
+window.addEventListener('resize', resizeCanvas);
 canvas.addEventListener('mousemove',e=>{ mouse.x=e.x; mouse.y=e.y; });
 
 class Particle{
-    constructor(){ this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.size=Math.random()*3+1; this.speedX=(Math.random()-0.5)*1.5; this.speedY=(Math.random()-0.5)*1.5; this.color='rgba(0,180,216,0.8)'; }
+    constructor(){ 
+        this.x=Math.random()*canvas.width; 
+        this.y=Math.random()*canvas.height; 
+        this.size=Math.random()*3+1; 
+        this.speedX=(Math.random()-0.5)*1.5; 
+        this.speedY=(Math.random()-0.5)*1.5; 
+        this.color='rgba(0,180,216,0.8)'; 
+    }
     update(){
         this.x+=this.speedX; this.y+=this.speedY;
         if(this.x<0||this.x>canvas.width) this.speedX*=-1;
@@ -282,7 +304,7 @@ class Particle{
     }
     draw(){ ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fillStyle=this.color; ctx.fill(); }
 }
-function initParticles(){ particlesArray=[]; for(let i=0;i<Math.floor(canvas.width*canvas.height/15000);i++) particlesArray.push(new Particle()); }
+function initParticles(){ particlesArray=[]; let count=Math.floor(canvas.width*canvas.height/15000); for(let i=0;i<count;i++) particlesArray.push(new Particle()); }
 function connectParticles(){ 
     for(let a=0;a<particlesArray.length;a++){
         for(let b=a;b<particlesArray.length;b++){
@@ -293,8 +315,7 @@ function connectParticles(){
     }
 }
 function animateParticles(){ ctx.clearRect(0,0,canvas.width,canvas.height); particlesArray.forEach(p=>{p.update();p.draw();}); connectParticles(); requestAnimationFrame(animateParticles);}
-initParticles(); animateParticles();
+resizeCanvas(); initParticles(); animateParticles();
 </script>
-
 </body>
 </html>
