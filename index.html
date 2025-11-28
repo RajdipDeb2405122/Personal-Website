@@ -5,207 +5,144 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rajdip Deb - Portfolio</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap">
-
 <style>
-    /* --- CSS Variables for Theme Management --- */
-    :root {
-        --primary: #00b4d8;
-        --primary-dark: #0096b4;
-        --dark: #1a1a2e;
-        --light: #f8f9fa;
-        --muted: #6c757d;
-        --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
-        --shadow-md: 0 10px 25px rgba(0,0,0,0.1);
-        --shadow-lg: 0 20px 50px rgba(0,0,0,0.2);
-    }
+:root {
+    --primary: #00b4d8;
+    --primary-dark: #0096b4;
+    --dark: #1a1a2e;
+    --light: #f8f9fa;
+    --muted: #6c757d;
+    --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+    --shadow-md: 0 10px 25px rgba(0,0,0,0.1);
+    --shadow-lg: 0 20px 50px rgba(0,0,0,0.2);
+}
 
-    /* --- Global Reset & Typography --- */
-    * { 
-        margin: 0; padding: 0; box-sizing: border-box; 
-        font-family: 'Inter', system-ui, -apple-system, sans-serif; 
-        scroll-behavior: smooth; 
-    }
-    body { 
-        background: var(--light); 
-        color: var(--dark); 
-        line-height: 1.6; 
-        overflow-x: hidden;
-    }
-    h1, h2, h3 { font-weight: 800; letter-spacing: -0.5px; }
-    p { color: var(--muted); }
-    a { text-decoration: none; transition: 0.3s ease; }
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,-apple-system,sans-serif;scroll-behavior:smooth;}
+body{background:var(--light);color:var(--dark);line-height:1.6;overflow-x:hidden;}
 
-    /* --- Entrance Animations --- */
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+h1,h2,h3{font-weight:800;letter-spacing:-0.5px;}
+p{color:var(--muted);}
+a{text-decoration:none;transition:0.3s ease;}
 
-    /* --- Navigation --- */
-    nav {
-        position: sticky; top: 0; width: 100%;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(10px);
-        padding: 15px 5%; 
-        display: flex; justify-content: flex-end; gap: 30px;
-        font-weight: 600;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-        z-index: 100;
-    }
-    nav a { color: var(--dark); font-size: 0.95rem; position: relative; }
-    nav a:hover { color: var(--primary); text-shadow: 0 0 5px rgba(0, 180, 216, 0.5); }
-    nav a::after {
-        content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: var(--primary); transition: 0.3s ease-in-out;
-    }
-    nav a:hover::after { width: 100%; }
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
-    /* --- Scroll Progress Indicator --- */
-    #scroll-progress {
-        position: fixed; top: 0; left: 0;
-        height: 4px;
-        background: var(--primary);
-        width: 0%;
-        z-index: 101;
-        transition: width 0.1s linear;
-        box-shadow: 0 0 8px var(--primary);
-    }
+nav{
+    position:sticky;top:0;width:100%;
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(10px);
+    padding:15px 5%;
+    display:flex;justify-content:flex-end;gap:30px;font-weight:600;
+    border-bottom:1px solid rgba(0,0,0,0.05);
+    z-index:100;
+}
+nav a{color:var(--dark);font-size:0.95rem;position:relative;}
+nav a:hover{color:var(--primary);text-shadow:0 0 5px rgba(0,180,216,0.5);}
+nav a::after{content:'';position:absolute;width:0;height:2px;bottom:-4px;left:0;background-color:var(--primary);transition:0.3s ease-in-out;}
+nav a:hover::after{width:100%;}
 
-    /* --- Hero Section (Floating Box) --- */
-    .hero {
-        background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        text-align: center;
-        padding: 100px 20px;
-        max-width: 800px;
-        margin: 50px auto 80px auto;
-        border-radius: 16px;
-        animation: fadeInUp 0.8s ease-out;
-        z-index: 50;
-        position: relative;
-    }
+#scroll-progress{
+    position:fixed;top:0;left:0;height:4px;background:var(--primary);width:0%;z-index:101;transition:width 0.1s linear;box-shadow:0 0 8px var(--primary);
+}
 
-    /* --- Typing + Slide Animation --- */
-    .typing-slide {
-        overflow: hidden;
-        display: inline-block;
-        white-space: nowrap;
-        border-right: 3px solid var(--primary);
-        font-size: 3.5rem;
-        font-weight: 800;
-        animation: typing 2.5s steps(25, end) forwards, slide-in 1s ease-out forwards, blink-caret 0.7s step-end infinite;
-    }
+#background-slideshow{
+    position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden;background-color:var(--dark);
+}
+#background-slideshow > div{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    opacity:0;
+    animation: imageSwitch 15s infinite;
+    background-size:cover;background-position:center;
+    filter:grayscale(10%) blur(1px) brightness(0.5);
+}
+@keyframes imageSwitch{
+    0%{opacity:0;animation-timing-function:ease-in;}
+    1%{opacity:1;transform:scale(1.05);}
+    18%{opacity:1;transform:scale(1.01);}
+    20%{opacity:0;transform:scale(1);}
+    100%{opacity:0;}
+}
+#slideshow-img-1{background-image:url('https://images.unsplash.com/photo-1549692520-21912d0833a7?q=80&w=2071&auto=format&fit=crop');}
+#slideshow-img-2{background-image:url('https://images.unsplash.com/photo-1516110833961-725d194d2a17?q=80&w=2070&auto=format&fit=crop');animation-delay:3s;}
+#slideshow-img-3{background-image:url('https://images.unsplash.com/photo-1506744038136-46e742678693?q=80&w=2070&auto=format&fit=crop');animation-delay:6s;}
+#slideshow-img-4{background-image:url('https://images.unsplash.com/photo-1574024220790-256ffb8e8f81?q=80&w=2070&auto=format&fit=crop');animation-delay:9s;}
+#slideshow-img-5{background-image:url('https://images.unsplash.com/photo-1515886657613-fa6c7e3f22da?q=80&w=2070&auto=format&fit=crop');animation-delay:12s;}
 
-    @keyframes typing {
-        from { width: 0; }
-        to { width: 100%; }
-    }
-    @keyframes blink-caret {
-        50% { border-color: transparent; }
-    }
-    @keyframes slide-in {
-        from { transform: translateX(-20px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
+.hero{
+    background:rgba(255,255,255,0.95); 
+    box-shadow:0 15px 40px rgba(0,0,0,0.15);
+    text-align:center;padding:120px 20px;
+    max-width:800px;margin:50px auto 80px auto;
+    border-radius:16px;animation:fadeInUp 0.8s ease-out;
+    position:relative;z-index:50;
+    overflow:hidden;
+}
+.hero h1{
+    font-size:3rem;margin-bottom:15px;
+    display:inline-block;white-space:nowrap;
+    overflow:hidden;
+}
+.hero h2{
+    font-size:1.5rem;margin-bottom:35px;color:var(--primary);
+    min-height:2em;transition:opacity 0.5s ease-in-out;
+}
+.btn{
+    display:inline-block;background:var(--primary);color:white;padding:14px 32px;
+    border-radius:50px;font-weight:700;box-shadow:var(--shadow-sm);
+    transition:all 0.3s cubic-bezier(0.23,1,0.32,1);
+}
+.btn:hover{background:var(--primary-dark);transform:translateY(-3px);box-shadow:var(--shadow-md);}
+.btn:active{transform:scale(0.98);box-shadow:var(--shadow-sm);}
 
-    .hero p { font-size: 1.3rem; margin-bottom: 35px; }
-    .btn {
-        display: inline-block; background: var(--primary); color: white; padding: 14px 32px;
-        border-radius: 50px; font-weight: 700; box-shadow: var(--shadow-sm);
-        animation: fadeInUp 0.8s ease-out 0.4s backwards;
-        transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    .btn:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: var(--shadow-md); }
-    .btn:active { transform: scale(0.98); box-shadow: var(--shadow-sm); }
+.work-section{padding:50px 5% 100px 5%;background:white;z-index:50;position:relative;}
+.section-title{text-align:center;font-size:2.5rem;margin-bottom:50px;position:relative;}
 
-    .work-section { padding: 50px 5% 100px 5%; background: white; z-index: 50; position: relative; }
-    .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; }
-    .work-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        max-width: 1200px; margin: 0 auto;
-    }
-    .project-card {
-        background: white; border-radius: 16px; overflow: hidden;
-        border: 1px solid rgba(0,0,0,0.08);
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        height: 100%; display: flex; flex-direction: column;
-        transform-style: preserve-3d;
-        transform: perspective(1000px);
-    }
-    .project-card:hover { transform: translateY(-8px) perspective(1000px); box-shadow: var(--shadow-md); border-color: transparent; }
-    .project-image-container { width: 100%; height: 200px; overflow: hidden; position: relative; }
-    .project-image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .project-card:hover .project-image-container img { transform: scale(1.08); }
-    .project-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-    .project-info h3 { font-size: 1.4rem; margin-bottom: 10px; color: var(--dark); }
-    .project-info p { margin-bottom: 20px; flex-grow: 1; }
-    .project-link-text { color: var(--primary); font-weight: 700; font-size: 0.9rem; }
+.work-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;
+    max-width:1200px;margin:0 auto;
+}
+.project-card{
+    background:white;border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,0.08);
+    transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+    height:100%;display:flex;flex-direction:column;transform-style:preserve-3d;transform:perspective(1000px);
+}
+.project-card:hover{transform:translateY(-8px) perspective(1000px);box-shadow:var(--shadow-md);border-color:transparent;}
+.project-image-container{width:100%;height:200px;overflow:hidden;position:relative;}
+.project-image-container img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;}
+.project-card:hover .project-image-container img{transform:scale(1.08);}
+.project-info{padding:25px;flex-grow:1;display:flex;flex-direction:column;}
+.project-info h3{font-size:1.4rem;margin-bottom:10px;color:var(--dark);}
+.project-info p{margin-bottom:20px;flex-grow:1;}
+.project-link-text{color:var(--primary);font-weight:700;font-size:0.9rem;transition:all 0.3s ease;}
+.project-link-text:hover{transform:translateX(5px);}
 
-    .about-section {
-        padding: 100px 5%; max-width: 1000px; margin: auto;
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 60px; align-items: center; z-index: 50; position: relative;
-    }
-    .profile-pic-container { text-align: center; }
-    .profile-pic { width: 240px; height: 240px; border-radius: 50%; object-fit: cover; box-shadow: var(--shadow-md); border: 4px solid white; }
-    .about-text h2 { font-size: 2.5rem; margin-bottom: 25px; }
-    .about-text p { font-size: 1.1rem; margin-bottom: 20px; }
+.about-section{padding:100px 5%;max-width:1000px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:60px;align-items:center;z-index:50;position:relative;}
+.profile-pic-container{text-align:center;}
+.profile-pic{width:240px;height:240px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow-md);border:4px solid white;}
 
-    footer { padding: 60px 20px; background: var(--dark); color: rgba(255,255,255,0.7); text-align: center; z-index: 50; position: relative; }
-    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px; }
-    .footer-links a {
-        color: white; padding: 8px 16px;
-        background: rgba(255,255,255,0.1); border-radius: 6px;
-        font-size: 0.9rem; font-weight: 600;
-        transition: all 0.3s ease;
-    }
-    .footer-links a:hover { background: var(--primary); color: white; transform: translateY(-3px) scale(1.05); }
+.about-text h2{font-size:2.5rem;margin-bottom:25px;}
+.about-text p{font-size:1.1rem;margin-bottom:20px;}
+.skills-container{margin-top:30px;}
+.skill-bar{margin-bottom:15px;background:#e0e0e0;border-radius:50px;overflow:hidden;height:18px;}
+.skill-fill{height:100%;width:0%;background:var(--primary);border-radius:50px;transition:width 1.5s ease-in-out;}
 
-    @media (max-width: 768px) {
-        nav { justify-content: center; padding: 15px; }
-        .hero h1 { font-size: 2.5rem; }
-        .about-section { text-align: center; }
-        .profile-pic { width: 180px; height: 180px; }
-        #cursor-trail { display: none; }
-    }
+footer{padding:60px 20px;background:var(--dark);color:rgba(255,255,255,0.7);text-align:center;z-index:50;position:relative;}
+.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:30px;}
+.footer-links a{color:white;padding:8px 16px;background:rgba(255,255,255,0.1);border-radius:6px;font-size:0.9rem;font-weight:600;transition:all 0.3s ease;}
+.footer-links a:hover{background:var(--primary);color:white;transform:translateY(-3px) scale(1.05);}
 
-    /* Background Slideshow */
-    #background-slideshow {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        z-index: -1; overflow: hidden; background-color: var(--dark);
-    }
-    #background-slideshow > div {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        opacity: 0; animation: imageSwitch 15s infinite;
-        background-size: cover; background-position: center;
-        filter: grayscale(10%) blur(1px) brightness(0.5);
-    }
-    @keyframes imageSwitch {
-        0% { opacity: 0; animation-timing-function: ease-in; }
-        1% { opacity: 1; transform: scale(1.05); }
-        18% { opacity: 1; transform: scale(1.01); }
-        20% { opacity: 0; transform: scale(1); }
-        100% { opacity: 0; }
-    }
-    #slideshow-img-1 { background-image: url('https://images.unsplash.com/photo-1549692520-21912d0833a7?q=80&w=2071&auto=format&fit=crop'); }
-    #slideshow-img-2 { background-image: url('https://images.unsplash.com/photo-1516110833961-725d194d2a17?q=80&w=2070&auto=format&fit=crop'); animation-delay: 3s; }
-    #slideshow-img-3 { background-image: url('https://images.unsplash.com/photo-1506744038136-46e742678693?q=80&w=2070&auto=format&fit=crop'); animation-delay: 6s; }
-    #slideshow-img-4 { background-image: url('https://images.unsplash.com/photo-1574024220790-256ffb8e8f81?q=80&w=2070&auto=format&fit=crop'); animation-delay: 9s; }
-    #slideshow-img-5 { background-image: url('https://images.unsplash.com/photo-1515886657613-fa6c7e3f22da?q=80&w=2070&auto=format&fit=crop'); animation-delay: 12s; }
+#cursor-trail{position:fixed;top:0;left:0;pointer-events:none;z-index:200;}
+.trail-particle{position:absolute;width:8px;height:8px;background-color:var(--primary);border-radius:50%;opacity:0;transform:scale(1);transition:transform 1s ease-out,opacity 1s ease-out,background-color 1s ease-out;will-change:transform,opacity;}
 
-    /* Cursor Trail */
-    #cursor-trail { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 200; }
-    .trail-particle {
-        position: absolute; width: 8px; height: 8px;
-        background-color: var(--primary); border-radius: 50%;
-        opacity: 0; transform: scale(1);
-        transition: transform 1s ease-out, opacity 1s ease-out, background-color 1s ease-out;
-        will-change: transform, opacity;
-    }
+@media (max-width:768px){
+    nav{justify-content:center;padding:15px;}
+    .hero h1{font-size:2rem;}
+    .hero h2{font-size:1.2rem;}
+    .about-section{text-align:center;}
+    .profile-pic{width:180px;height:180px;}
+    #cursor-trail{display:none;}
+}
 </style>
 </head>
-
 <body>
 
 <div id="scroll-progress"></div>
@@ -226,63 +163,66 @@
 </nav>
 
 <section class="hero" id="home">
-    <h1 class="typing-slide">
-        <span class="typing-text">Hi, I'm <span style="color: var(--primary);">Rajdip Deb</span></span>
-    </h1>
-    <p>A CSE undergrad, crafting clean interfaces and thoughtful experiences.</p>
+    <h1 id="typed-title"></h1>
+    <h2 id="dynamic-subtitle"></h2>
     <a class="btn" href="#work">View My Work</a>
 </section>
 
 <section class="work-section" id="work">
     <h2 class="section-title">My Work</h2>
     <div class="work-grid">
+
         <a class="project-card" href="https://github.com/RajdipDeb2405122/Flappy-Bird-Project" target="_blank" data-card>
             <div class="project-image-container">
-                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop" alt="Game Development">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop" alt="Game Development" loading="lazy">
             </div>
             <div class="project-info">
                 <h3>Flappy Bird Game</h3>
-                <p>A classic game recreated using C/C++ graphics libraries. Demonstrates understanding of game loops and collision detection.</p>
+                <p>A classic game recreated using C/C++ graphics libraries.</p>
                 <span class="project-link-text">View on GitHub →</span>
             </div>
         </a>
 
         <a class="project-card" href="https://github.com/RajdipDeb2405122" target="_blank" data-card>
             <div class="project-image-container">
-                <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=800&auto=format&fit=crop" alt="GitHub Repositories">
+                <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=800&auto=format&fit=crop" alt="GitHub Repositories" loading="lazy">
             </div>
             <div class="project-info">
                 <h3>GitHub Repositories</h3>
-                <p>My central hub for source code. Explore my coding projects, contributions, and development activity.</p>
+                <p>Explore my coding projects, contributions, and development activity.</p>
                 <span class="project-link-text">View Profile →</span>
             </div>
         </a>
 
         <a class="project-card" href="https://www.linkedin.com/in/rajdip-deb-52a270399/" target="_blank" data-card>
             <div class="project-image-container">
-                 <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop" alt="Professional Profile">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop" alt="Professional Profile" loading="lazy">
             </div>
             <div class="project-info">
                 <h3>Professional Profile</h3>
-                <p>Connect with me professionally. See my detailed career journey, skills, endorsements, and achievements.</p>
+                <p>Connect with me professionally. See my skills and achievements.</p>
                 <span class="project-link-text">Connect on LinkedIn →</span>
             </div>
         </a>
+
     </div>
 </section>
 
 <section class="about-section" id="about">
     <div class="profile-pic-container">
-        <img class="profile-pic" src="Rajdip Image main.jpg" alt="Rajdip Deb">
+        <img class="profile-pic" src="https://images.unsplash.com/photo-1603415526960-fb024c6eebf1?q=80&w=800&auto=format&fit=crop" alt="Rajdip Deb">
     </div>
     <div class="about-text">
         <h2>About Me</h2>
-        <p>
-            Hi! I’m Rajdip, currently pursuing my undergrad on CSE at Bangladesh University of Engineering and Technology in Dhaka and originally from Chattogram.
-        </p>
-        <p>
-            I am passionate about technology, coding, UI design, and competitive problem-solving. I love exploring new technologies, tackling Data Structures & complex algorithmic challenges, and continuously sharpening my programming skills to build impactful solutions.
-        </p>
+        <p>Hi! I’m Rajdip, pursuing my CSE undergrad at BUET, originally from Chattogram.</p>
+        <p>I love coding, UI design, problem-solving, and building impactful projects.</p>
+
+        <div class="skills-container">
+            <div class="skill-bar"><div class="skill-fill" data-skill="C++" style="width:0%"></div></div>
+            <div class="skill-bar"><div class="skill-fill" data-skill="Python" style="width:0%"></div></div>
+            <div class="skill-bar"><div class="skill-fill" data-skill="Web Dev" style="width:0%"></div></div>
+            <div class="skill-bar"><div class="skill-fill" data-skill="UI/UX Design" style="width:0%"></div></div>
+        </div>
     </div>
 </section>
 
@@ -294,7 +234,7 @@
         <a href="https://github.com/RajdipDeb2405122" target="_blank">GitHub</a>
         <a href="https://x.com/rajdip_deb_" target="_blank">X (Twitter)</a>
         <a href="https://www.facebook.com/profile.php?id=61583990412661" target="_blank">Facebook</a>
-        <span style="flex-basis: 100%; height: 10px;"></span>
+        <span style="flex-basis: 100%; height: 10px;"></span> 
         <a href="https://codeforces.com/profile/2405122_Rajdip_Deb" target="_blank">Codeforces</a>
         <a href="https://leetcode.com/u/Rajdip_Deb/" target="_blank">LeetCode</a>
         <a href="https://atcoder.jp/users/Rajdip_Deb" target="_blank">AtCoder</a>
@@ -305,42 +245,96 @@
 <div id="cursor-trail"></div>
 
 <script>
-    // Scroll Progress
-    const progressBar = document.getElementById('scroll-progress');
-    window.addEventListener('scroll', () => {
-        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = (window.scrollY / totalHeight) * 100;
-        progressBar.style.width = progress + '%';
-    });
+// --- Scroll Progress ---
+const progressBar = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = window.scrollY;
+    progressBar.style.width = (scrolled/totalHeight)*100 + '%';
+});
 
-    // Cursor Trail
-    const trailContainer = document.getElementById('cursor-trail');
-    window.addEventListener('mousemove', e => {
-        const particle = document.createElement('div');
-        particle.className = 'trail-particle';
-        particle.style.left = e.pageX + 'px';
-        particle.style.top = e.pageY + 'px';
-        trailContainer.appendChild(particle);
-        setTimeout(() => particle.remove(), 800);
-    });
+// --- Cursor Trail ---
+const trailContainer = document.getElementById('cursor-trail');
+const colors = ['#00b4d8','#0096b4','#48cae4','#90e0ef','#ade8f4'];
+document.addEventListener('mousemove', e=>{
+    const particle = document.createElement('div');
+    particle.className='trail-particle';
+    const size=Math.random()*5+3;
+    particle.style.width=size+'px';
+    particle.style.height=size+'px';
+    particle.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+    particle.style.left=(e.clientX-size/2)+'px';
+    particle.style.top=(e.clientY-size/2)+'px';
+    trailContainer.appendChild(particle);
+    setTimeout(()=>particle.remove(),800);
+});
 
-    // Tilt Effect on Project Cards
-    document.querySelectorAll('[data-card]').forEach(card => {
-        card.addEventListener('mousemove', e => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * 8;
-            const rotateY = ((x - centerX) / centerX) * 8;
-            card.style.transform = `perspective(1000px) rotateX(${ -rotateX }deg) rotateY(${ rotateY }deg) translateZ(0)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-        });
+// --- Project Cards 3D Tilt ---
+document.querySelectorAll('[data-card]').forEach(card=>{
+    card.addEventListener('mousemove', e=>{
+        const rect=card.getBoundingClientRect();
+        const x=e.clientX-rect.left;
+        const y=e.clientY-rect.top;
+        const centerX=rect.width/2;
+        const centerY=rect.height/2;
+        const rotateX=(y-centerY)/centerY*8;
+        const rotateY=(x-centerX)/centerX*8;
+        card.style.transform=`perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg) translateZ(0)`;
     });
+    card.addEventListener('mouseleave', ()=>{
+        card.style.transform='perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+    });
+});
 
+// --- Typing Animation ---
+const titleText = 'Hi... I\'m Rajdip Deb';
+const typedTitle = document.getElementById('typed-title');
+let i=0;
+function typeTitle(){
+    if(i<titleText.length){
+        typedTitle.textContent += titleText.charAt(i);
+        i++;
+        setTimeout(typeTitle, Math.random()*150+50);
+    }
+}
+typeTitle();
+
+// --- Dynamic Subtitle ---
+const subtitles = ['CSE Undergrad', 'Problem Solver', 'UI Enthusiast', 'Competitive Programmer'];
+const subtitleElement = document.getElementById('dynamic-subtitle');
+let subIndex=0;
+function rotateSubtitle(){
+    subtitleElement.style.opacity=0;
+    setTimeout(()=>{
+        subtitleElement.textContent=subtitles[subIndex];
+        subtitleElement.style.opacity=1;
+        subIndex=(subIndex+1)%subtitles.length;
+    },500);
+}
+setInterval(rotateSubtitle,2500);
+rotateSubtitle();
+
+// --- Animate Skill Bars on Scroll ---
+const skills = document.querySelectorAll('.skill-fill');
+function animateSkills(){
+    const triggerBottom = window.innerHeight * 0.85;
+    skills.forEach(skill=>{
+        const skillTop = skill.getBoundingClientRect().top;
+        if(skillTop < triggerBottom){
+            let width=0;
+            const targetWidth={
+                'C++': '90%',
+                'Python':'85%',
+                'Web Dev':'80%',
+                'UI/UX Design':'75%'
+            }[skill.dataset.skill];
+            skill.style.width=targetWidth;
+        }
+    });
+}
+window.addEventListener('scroll', animateSkills);
+animateSkills();
 </script>
+
 </body>
 </html>
